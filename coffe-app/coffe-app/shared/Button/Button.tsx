@@ -5,8 +5,8 @@ import { Colors, Fonts, Radius } from "../tokens";
 export function Button ( {text, ...props}: PressableProps & {text: string} ) {
     return (
         <Pressable {...props}>
-            <View style = {Styles.button}>
-                <Text style = {Styles.text}>{text}</Text>
+            <View style = { Styles.button }>
+                <Text style = { Styles.text }>{text}</Text>
             </View>
         </Pressable>
     )
