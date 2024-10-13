@@ -1,7 +1,8 @@
 export const Colors = {
     white: '#FFFFFF',
     gray: '#A9A9A9',
-    Worange: '#C67C4E'
+    Worange: '#C67C4E',
+    hoverOrange: '#A76237'
 }
 
 export const Fonts = {
