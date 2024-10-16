@@ -8,9 +8,12 @@ export const Colors = {
 export const Fonts = {
     f34: 34,
     f14: 14,
-    f16: 16
+    f16: 16,
+    SoraRegular: 'SoraRegular',
+    SoraSemiBold: 'SoraSemiBold'
 }
 
 export const Radius = {
     r16: 16
 }
+

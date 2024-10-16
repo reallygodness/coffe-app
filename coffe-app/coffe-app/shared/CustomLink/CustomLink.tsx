@@ -7,7 +7,7 @@ import { Button } from "../Button/Button";
 
 export function CustomLink({text, ...props}: LinkProps & {text:string}) {
 	return (
-		<Link href={""} style={styles.link} {...props}>     
+		<Link href={""} style={styles.link} {...props}>      
 			<Text style = {styles.text}>{text}</Text>
 		</Link>
 	);
