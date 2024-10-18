@@ -41,7 +41,7 @@ export default function App() {
 				<Text style={styles.Undertextstyle}>
 					Свежие зёрна, настоящая арабика и бережная обжарка
 				</Text>		
-				<CustomLink href = '/tabs/home' text = "Начать" asChild>
+				<CustomLink href = '/home' text = "Начать" asChild>
 				</CustomLink>
 			</Animated.View>
 		</View>
