@@ -1,6 +1,7 @@
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router/stack';
 import React from 'react';
+import { Colors } from '../shared/tokens';
 
 export default function Layout() {
   const [loaded] = useFonts({
@@ -12,7 +13,7 @@ export default function Layout() {
 		return null;
 	}
   return (
-    <Stack>
+    <Stack screenOptions={{ statusBarColor: Colors.black}}>
       <Stack.Screen name = "index" options = {{ headerShown: false }}/>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen name = "address"/>
