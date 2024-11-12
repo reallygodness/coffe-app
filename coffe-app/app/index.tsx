@@ -41,7 +41,7 @@ export default function App() {
 				<Text style={styles.Undertextstyle}>
 					Свежие зёрна, настоящая арабика и бережная обжарка
 				</Text>		
-				<CustomLink href = '/(tabs)/catalog' text = "Начать" asChild>
+				<CustomLink href = '/home' text = "Начать" asChild>
 				</CustomLink>
 			</Animated.View>
 		</View>
@@ -66,14 +66,14 @@ const styles = StyleSheet.create({
 		fontSize: Fonts.f34,
 		textAlign: 'center',
 		fontWeight: '600',
-		fontFamily: 'SoraSemiBold'
+		fontFamily: Fonts.SoraSemiBold
 	},
 	Undertextstyle: {
 		color: Colors.gray,
 		fontSize: Fonts.f14,
 		textAlign: 'center',
 		padding: 5,
-		fontFamily: 'SoraRegular'
+		fontFamily: Fonts.SoraRegular
 	},
 
 	image: {

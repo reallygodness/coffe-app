@@ -1,51 +1,23 @@
-import React, { useEffect } from 'react';
-import { Stack } from 'expo-router';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useFonts } from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
+import { Stack } from 'expo-router/stack';
+import React from 'react';
 import { Colors } from '../shared/tokens';
 
-SplashScreen.preventAutoHideAsync();
-
 export default function Layout() {
-  const [loaded, error] = useFonts({
-    'SoraRegular': require('../assets/fonts/Sora-Regular.ttf'),
-    'SoraSemiBold': require('../assets/fonts/Sora-SemiBold.ttf'),
-  });
-  useEffect(() => {
-    if (loaded || error) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded, error]);
+  const [loaded] = useFonts({
+		'SoraRegular': require('../assets/fonts/Sora-Regular.ttf'),
+		'SoraSemiBold': require('../assets/fonts/Sora-SemiBold.ttf'),
+	});
 
-  if (!loaded && !error) {
-    return null;
-  }
-
+  if (!loaded) {
+		return null;
+	}
   return (
-    <SafeAreaProvider>
-      <StatusBar style="light" backgroundColor="black" />
-      <Stack
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen
-          name="index"
-          options={{
-            statusBarColor: Colors.black,
-            navigationBarColor: Colors.black,
-          }}
-        />
-        <Stack.Screen
-          name="(tabs)"
-          options={{
-            headerShown: false,
-            navigationBarColor: Colors.white,
-          }}
-        />
-      </Stack>
-    </SafeAreaProvider>
+    <Stack screenOptions={{ statusBarColor: Colors.black}}>
+      <Stack.Screen name = "index" options = {{ headerShown: false }}/>
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name = "address"/>
+      <Stack.Screen name = "success"/>
+    </Stack>
   );
 }

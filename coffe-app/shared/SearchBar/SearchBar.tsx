@@ -1,51 +1,41 @@
 import React from 'react';
-import { Pressable, StyleSheet, TextInput, View } from 'react-native';
+import {StyleSheet, TextInput} from 'react-native';
+import {SafeAreaView, SafeAreaProvider} from 'react-native-safe-area-context';
 import { Colors, Fonts } from '../tokens';
-import SearchIcon from '../../assets/icons/SearchIcon';
 
-export default function SearchInput({
-  text,
-  onChangeText,
-}: {
-  text: string;
-  onChangeText: (prev: string) => void;
-}) {
+const TextInputExample = () => {
+  const [text, onChangeText] = React.useState('');
+
   return (
-    <View style={styles.inputWrapper}>
-      <TextInput
-        style={styles.input}
-        placeholder="Найти кофе"
-        placeholderTextColor={Colors.placeholder}
-        onChangeText={onChangeText}
-        value={text}
-        autoCapitalize="none"
-      />
-      <Pressable style={styles.icon}>
-        <SearchIcon />
-      </Pressable>
-    </View>
+    <SafeAreaProvider>
+      <SafeAreaView style = {styles.container}>
+        <TextInput
+          style={styles.input}
+          onChangeText={onChangeText}
+          value={text}
+          placeholder='Найти кофе'
+          placeholderTextColor={Colors.white}
+        />
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
-}
+};
+
 const styles = StyleSheet.create({
   input: {
-    width: '100%',
     height: 52,
-    borderRadius: 16,
-    backgroundColor: Colors.input,
-    padding: 16,
-    paddingLeft: 48,
-    fontSize: 14,
-    fontFamily: Fonts.SoraRegular,
-    color: Colors.white,
+    width: 315,
+    margin: 20,
+    borderWidth: 0,
+    padding: 10,
+    fontSize: Fonts.f14,
+    borderRadius: 12,
+    backgroundColor: Colors.searchColor,
   },
-  icon: {
-    width: 20,
-    height: 20,
-    position: 'absolute',
-    top: 16,
-    left: 16,
-  },
-  inputWrapper: {
-    width: '100%',
-  },
+
+  container: {
+    alignItems: 'center'
+  }
 });
+
+export default TextInputExample;
