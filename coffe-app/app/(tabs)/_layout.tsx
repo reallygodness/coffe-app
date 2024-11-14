@@ -1,25 +1,30 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Tabs } from 'expo-router';
 import React from 'react';
+import { Tabs } from 'expo-router';
+import { CustomTabBar } from '../../widgets/TabBar';
 
-export default function TabLayout() {
+
+export default function CatalogLayout() {
   return (
-    <Tabs screenOptions={{ tabBarActiveTintColor: 'blue' } }>
+    <Tabs
+      screenOptions={{
+        headerShown: false,
+        unmountOnBlur: true,
+      }}
+      tabBar={(props) => <CustomTabBar {...props} />}
+    >
       <Tabs.Screen
-        name="home"
+        name="catalog"
         options={{
-          title: 'Сatalog',
-          headerShown: false,
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color}
-          href = '/catalog' />,
+          title: 'Главная',
+          tabBarLabel: 'Главная',
         }}
       />
+
       <Tabs.Screen
         name="cart"
         options={{
-          title: 'Cart',
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="cog" color={color}
-          href = '/cart' />,
+          title: 'Заказ',
+          tabBarLabel: 'Заказ',
         }}
       />
     </Tabs>

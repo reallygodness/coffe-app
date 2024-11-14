@@ -1,55 +1,56 @@
-import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet } from 'react-native';
+import AddressLine from '../../shared/Adressline/addressline';
+import CardList from '../../enteties/card/ui/CardList';
 import { Colors } from '../../shared/tokens';
 import SearchBar from '../../shared/SearchBar/SearchBar';
-import { coffeAtom } from '../../enteties/user/model/coffe.state';
-import { useAtom } from 'jotai';
-import axios from 'axios';
-import { API } from '../../enteties/auth/api/api';
-import { SearchResponse } from '../../enteties/auth/model/search.interfaces';
-import { getCoffeAtom } from '../../enteties/auth/model/search.state';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { ButtonFilter } from '../../shared/Button/ButtonFilter';
+import ButtonBar from '../../shared/Button/ButtonBar';
+import { UnionKeys } from '../../shared/Button/ButtonBar.type';
 
+export default function Catalog() {
+  const [text, onChangeText] = useState<string>('');
+  const [activeKey, setActiveKey] = useState<UnionKeys>('Все');
+  const [isFilter, setIsFilter] = useState<boolean>(true);
 
-
-export default function Tab() {
-  const [search, getCoffe] = useAtom(getCoffeAtom);
-
-  useEffect(() => {
-    getCoffe({type: 'cappuccino', text: 'капучино' })
-    console.log(search.subTitle)
-  }, [])
-  
   return (
-    <SafeAreaProvider style = {{backgroundColor: Colors.white}}>
-      <SafeAreaView style = {styles.container}>
-        <SearchBar></SearchBar>
-      </SafeAreaView>
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <AddressLine />
+        <SearchBar text={text} onChangeText={(value) => onChangeText(value)} />
+      </View>
 
-      <SafeAreaView style = {styles.containerBody}>
-        <ButtonFilter text='Все'></ButtonFilter>
-        <ButtonFilter text='Капучино'></ButtonFilter>
-        <ButtonFilter text='Макиятто'></ButtonFilter>
-        <ButtonFilter text='Латте'></ButtonFilter>
-      </SafeAreaView>
-    </SafeAreaProvider>
-   
-         
+      <View style={styles.body}>
+        <ButtonBar
+          inputText={text}
+          activeKey={activeKey}
+          setActiveKey={setActiveKey}
+          setIsFilter={setIsFilter}
+          isFilter={isFilter}
+        />
+        <CardList
+          inputText={text}
+          onChangeText={onChangeText}
+          activeKey={activeKey}
+          isFilter={isFilter}
+        />
+      </View>
+    </View>
   );
 }
-
-const styles = StyleSheet.create({      
+const styles = StyleSheet.create({
   container: {
-    marginTop: 0,
-    backgroundColor: Colors.black,
-    paddingBottom: 100
+    flex: 1,
+    backgroundColor: Colors.lightBG,
   },
 
-  containerBody: {
-    marginTop: 20,
-    marginLeft: 30,
-    flexDirection: 'row',
-  }
-
+  header: {
+    backgroundColor: Colors.black,
+    padding: 30,
+  },
+  body: {
+    paddingTop: 28,
+    backgroundColor: Colors.lightBG,
+    width: '100%',
+    gap: 24,
+  },
 });

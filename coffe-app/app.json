@@ -27,6 +27,7 @@
       "expo-router",
       "expo-font"
     ],
-    "scheme": "coffee-app"
+    "scheme": "coffee-app",
+    "newArchEnabled": true
   }
 }
