@@ -4,12 +4,11 @@ import React from 'react';
 
 export default function TabLayout() {
   return (
-    <Tabs screenOptions={{ tabBarActiveTintColor: 'blue' } }>
+    <Tabs screenOptions={{ tabBarActiveTintColor: 'blue' }}>
       <Tabs.Screen
         name="home"
         options={{
           title: 'Сatalog',
-          headerShown: false,
           tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color}
           href = '/catalog' />,
         }}

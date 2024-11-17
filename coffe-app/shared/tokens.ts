@@ -3,9 +3,7 @@ export const Colors = {
     gray: '#A9A9A9',
     Worange: '#C67C4E',
     hoverOrange: '#A76237',
-    black: "#000000",
-    searchColor: '#313131',
-    filterColor: '#2F4B4E'
+    black: "#000000"
 }
 
 export const Fonts = {
