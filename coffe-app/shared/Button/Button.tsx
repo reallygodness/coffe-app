@@ -1,62 +1,59 @@
-import {
-	Pressable,
-	PressableProps,
-	Text,
-	StyleSheet,
-	Animated,
-	GestureResponderEvent,
-} from 'react-native';
-import { Colors, Fonts, Radius } from '../tokens';
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
+import { Pressable, Text, StyleSheet, Animated, PressableProps } from 'react-native';
+import { Colors } from '../tokens';
 
-export function Button({ text, ...props }: PressableProps & { text: string }) {
-	const animatedValue = new Animated.Value(100);
-	const color = animatedValue.interpolate({
-		inputRange: [0, 100],
-		outputRange: [Colors.hoverOrange, Colors.Worange],
-	});
-
-	const fadeIn = (e: GestureResponderEvent) => {
-		Animated.timing(animatedValue, {
-			toValue: 0,
-			duration: 100,
-			useNativeDriver: true,
-		}).start();
-		// eslint-disable-next-line @typescript-eslint/no-unused-expressions
-		props.onPressIn && props.onPressIn(e);
-	};
-
-	const fadeOut = (e: GestureResponderEvent) => {
-		Animated.timing(animatedValue, {
-			toValue: 100,
-			duration: 100,
-			useNativeDriver: true,
-		}).start();
-		// eslint-disable-next-line @typescript-eslint/no-unused-expressions
-		props.onPressOut && props.onPressOut(e);
-	};
-
-	return (
-		<Pressable {...props} onPressIn={fadeIn} onPressOut={fadeOut}>
-			<Animated.View style={{ ...Styles.button, backgroundColor: color }}>
-				<Text style={Styles.text}>{text}</Text>
-			</Animated.View>
-		</Pressable>
-	);
+export function Button({
+  text,
+  onPress,
+  style,
+  ...props
+}: PressableProps & { text: string; onPress: () => void }) {
+  const animatedValue = new Animated.Value(100);
+  const bgColor = animatedValue.interpolate({
+    inputRange: [0, 100],
+    outputRange: [Colors.accentBrownHover, Colors.accentBrown],
+  });
+  const onPressButtonIn = () => {
+    Animated.timing(animatedValue, {
+      toValue: 0,
+      duration: 200,
+      useNativeDriver: true,
+    }).start();
+  };
+  const onPressButtonOut = () => {
+    Animated.timing(animatedValue, {
+      toValue: 100,
+      duration: 200,
+      useNativeDriver: true,
+    }).start();
+  };
+  return (
+    <Pressable
+      onPressIn={onPressButtonIn}
+      onPressOut={onPressButtonOut}
+      onPress={onPress}
+      style={style}
+      {...props}
+    >
+      <Animated.View style={{ ...styles.container, backgroundColor: bgColor }}>
+        <Text style={styles.text}>{text}</Text>
+      </Animated.View>
+    </Pressable>
+  );
 }
-
-const Styles = StyleSheet.create({
-	text: {
-		color: Colors.white,
-		fontSize: Fonts.f16,
-	},
-
-	button: {
-		backgroundColor: Colors.Worange,
-		borderRadius: Radius.r16,
-		justifyContent: 'center',
-		alignItems: 'center',
-		height: 62,
-		width: 315,
-	},
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 62,
+    borderRadius: 16,
+  },
+  text: {
+    color: Colors.white,
+    fontSize: 16,
+    fontStyle: 'normal',
+    textAlign: 'center',
+    fontFamily: 'Sora-SemiBold',
+  },
 });

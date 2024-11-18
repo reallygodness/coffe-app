@@ -1,84 +1,95 @@
-/* eslint-disable prettier/prettier */
-import { StyleSheet, Text, View, Image, Animated, Pressable } from 'react-native';
-import { Colors, Fonts } from '../shared/tokens';
-import { Button } from '../shared/Button/Button';
+import { StyleSheet, View, Text, ImageBackground, Animated } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { LinearGradient } from 'expo-linear-gradient';
+import { router } from 'expo-router';
 import React from 'react';
-import { CustomLink } from '../shared/CustomLink/CustomLink';
+import { Button } from '../shared/Button/Button';
+import { Colors, Fonts } from '../shared/tokens';
 
-export default function App() {
-	const animatedValue = new Animated.ValueXY({
-		x: 0,
-		y: -100,
-	});
+export default function HomeScreen() {
+  const animatedValueText = new Animated.ValueXY({ x: 0, y: -82 });
+  const animatedOpacity = new Animated.Value(0);
+  Animated.parallel([
+    Animated.timing(animatedValueText, {
+      toValue: { x: 0, y: 0 },
+      duration: 1800,
+      useNativeDriver: false,
+    }),
+    Animated.timing(animatedOpacity, {
+      toValue: 1,
+      duration: 1800,
+      useNativeDriver: false,
+    }),
+  ]).start();
 
-	Animated.timing(animatedValue, {
-		toValue: {
-			x: 0,
-			y: 5,
-		},
-		duration: 2000,
-		useNativeDriver: true,
-	}).start();
+  return (
+    <SafeAreaView style={styles.container}>
+      <ImageBackground
+        source={require('../assets/images/bg.png')}
+        resizeMode="contain"
+        style={styles.background}
+      />
+      <LinearGradient
+        colors={['transparent', '#000']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 0, y: 0.5 }}
+        style={styles.gradient}
+      >
+        <View style={styles.wrapper}>
+          <Animated.Text
+            style={{
+              ...styles.title,
+              transform: [{ translateX: animatedValueText.x }, { translateY: animatedValueText.y }],
+              opacity: animatedOpacity,
+            }}
+          >
+            Одно из самых вкусных кофе в городе!
+          </Animated.Text>
 
-
-	return (
-		<View style={styles.container}>
-			<Image
-				style={styles.image}
-				// eslint-disable-next-line @typescript-eslint/no-require-imports
-				source={require('../assets/Coffee-logo.png')}
-				resizeMode="contain"
-			/>
-			<Animated.View style={styles.content}>
-				<Animated.Text
-					style={{
-						...styles.Maintextstyle,
-						transform: [{ translateX: animatedValue.x }, { translateY: animatedValue.y }],
-					}}
-				>
-					Одно из самых вкусных кофе в городе!
-				</Animated.Text>
-				<Text style={styles.Undertextstyle}>
-					Свежие зёрна, настоящая арабика и бережная обжарка
-				</Text>		
-				<CustomLink href = '/home' text = "Начать" asChild>
-				</CustomLink>
-			</Animated.View>
-		</View>
-	);
+          <Text style={styles.subtitle}>Свежие зёрна, настоящая арабика и бережная обжарка</Text>
+          <Button text="Начать" onPress={() => router.push('./(tabs)/catalog')} />
+        </View>
+      </LinearGradient>
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
-	// eslint-disable-next-line react-native/no-color-literals
-	container: {
-		backgroundColor: 'black',
-		justifyContent: 'flex-end',
-		alignItems: 'center',
-		flex: 1,
-		padding: 50,
-	},
-	content: {
-		gap: 10,
-	},
-
-	Maintextstyle: {
-		color: Colors.white,
-		fontSize: Fonts.f34,
-		textAlign: 'center',
-		fontWeight: '600',
-		fontFamily: Fonts.SoraSemiBold
-	},
-	Undertextstyle: {
-		color: Colors.gray,
-		fontSize: Fonts.f14,
-		textAlign: 'center',
-		padding: 5,
-		fontFamily: Fonts.SoraRegular
-	},
-
-	image: {
-		height: 600,
-		width: 468,
-	},
-
+  container: {
+    flex: 1,
+    backgroundColor: Colors.black,
+  },
+  gradient: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  background: {
+    flex: 2,
+    justifyContent: 'center',
+  },
+  wrapper: {
+    width: 315,
+  },
+  title: {
+    color: Colors.white,
+    fontSize: 34,
+    fontWeight: '600',
+    fontStyle: 'normal',
+    lineHeight: 34,
+    letterSpacing: 1,
+    textAlign: 'center',
+    paddingBottom: 8,
+    fontFamily: Fonts.SoraSemiBold,
+  },
+  subtitle: {
+    color: Colors.lightText,
+    fontSize: 14,
+    fontWeight: '400',
+    fontStyle: 'normal',
+    letterSpacing: 1,
+    textAlign: 'center',
+    paddingBottom: 24,
+    fontFamily: Fonts.SoraRegular,
+  },
 });

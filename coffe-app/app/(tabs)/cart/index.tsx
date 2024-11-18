@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { CustomLink } from '../../shared/CustomLink/CustomLink';
+import { CustomLink } from '../../../shared/CustomLink/CustomLink';
 
 export default function Tab() {
   return (
